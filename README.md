@@ -2,7 +2,7 @@
 
 > Vue.js project using vue-cli & webpack-simple temlpate
 
-## Build Setup
+## If you fork or clone this repo - Get up and running:
 
 ``` bash
 # install dependencies
@@ -16,3 +16,76 @@ npm run build
 ```
 
 For detailed explanation on how things work, consult the [docs for vue-loader](http://vuejs.github.io/vue-loader).
+
+
+# What is a good starting workflow for Vue JS?
+
+- It should include a build process that optimizes (compiles) code
+- It can leverage ES6 code that is polyfilled / transpiled to ES5 for compatibility
+- It should include a developer server (http)
+   
+   - Need to be able to test the app under realistic circumstances
+   
+   - Lazy or async loading of code
+
+- It should allow you to include special features between "Code" --> Sever --> User(Client)
+   
+   - Compiling Single File Templates (.vue)
+   
+   - Case-insensitive Component Selectors
+   
+   - Preprocessors (babel, scss)
+   
+   - Minify/Uglify/Bundler
+   
+   - etc.
+
+- Linting and uniform formatting (ESLint)
+
+## Options
+
++ Webpack with vue-loader
+
+    - requires you to setup your own customized build process and config
+    - reference the "Vue SPA" (https://github.com/mattcc82/vue_spa)
+
++ ** *Vue CLI**
+
+    - less setup and automatically deals with fetching of VueJS Project Templates
+
+## Vue CLI
+
+Globally install vue-cli using node package manager
+
+```
+npm install -g vue-cli
+```
+
+Which gives you access to few available project/build templates:
+
+- simple
+
+    > index.html + Vue CDN import
+
+- ** *webpack-simple**
+
+    > **Basic Webpack Workflow**
+    
+    > (https://github.com/vuejs-templates/webpack-simple)
+
+- webpack
+
+    > Complex Webpack Workflow (includes testing modules)
+
+- browserify / browserify-simple
+
+    > Browserify Workflows
+
+Navigate to where you want to initialize a vue-cli project template & follow the prompts
+
+```
+$ vue init webpack-simple my-project
+$ cd my-project
+$ npm install
+$ npm run dev
+```
