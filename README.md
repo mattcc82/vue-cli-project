@@ -92,7 +92,7 @@ $ npm run dev
 
 ## More on ".vue" files and the CLI
 
-###The ".vue" File
+### The ".vue" File
 
 You can learn more about ".vue" Files in this Article from the official Docs: (http://vuejs.org/guide/single-file-components.html)
 
@@ -100,7 +100,7 @@ Learn more about the render()  method in another Article in the official Docs: (
 
 Finally, it's important to be aware of the fact, that you can also load your App.vue File (your main Component/ Instance) via the following two Ways (Alternatives to render() ):
 
-####1) Using the ES6 Spread Operator (for that, you need to add babel-preset-stage-2 as a Dependency and to your .babelrc File):
+#### 1) Using the ES6 Spread Operator (for that, you need to add babel-preset-stage-2 as a Dependency and to your .babelrc File):
 
 ```bash
 npm install --save-dev babel-preset-stage-2 
@@ -126,7 +126,7 @@ new Vue({
 });
 ```
 
-####2) Using mount() :
+#### 2) Using mount() :
 
 Also install the stage-2 preset as described above.
 
@@ -141,7 +141,7 @@ const vm = new Vue({
 vm.$mount('#app');
 ```
 
-###The CLI
+### The CLI
 
 Learn more about the CLI here: (https://github.com/vuejs/vue-cli)
 
