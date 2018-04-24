@@ -20,7 +20,8 @@ export default {
     },
     editAgeBus () {
       this.userAge = 30
-      bus.$emit('ageEditedBus', this.userAge)
+      // bus.$emit('ageEditedBus', this.userAge)
+      bus.changeAge(this.userAge)
     }
   }
 }
