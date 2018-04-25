@@ -150,3 +150,13 @@ Local CSS / Sass Files and CLI Templates
 The webpack-simple template doesn't support local CSS or Sass files, because no CSS loader is set up.
 
 Use the webpack template (not webpack-simple) to get this functionality: (https://github.com/vuejs-templates/webpack)
+
+### Components
+
+#### Useful links
+
+- Official Docs - Props: (http://vuejs.org/guide/components.html#Props)
+
+- Official Docs - Custom Events: (http://vuejs.org/guide/components.html#Custom-Events)
+
+- Official Docs - Non-Parent-Child Communication: (http://vuejs.org/guide/components.html#Non-Parent-Child-Communication)
