@@ -151,6 +151,8 @@ The webpack-simple template doesn't support local CSS or Sass files, because no 
 
 Use the webpack template (not webpack-simple) to get this functionality: (https://github.com/vuejs-templates/webpack)
 
+### Components
+
 #### Useful links
 
 - Official Docs - Props: (http://vuejs.org/guide/components.html#Props)
