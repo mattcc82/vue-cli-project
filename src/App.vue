@@ -1,60 +1,64 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <h1>{{ msg }}</h1>
-    <h2>Essential Links</h2>
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank">Forum</a></li>
-      <li><a href="https://chat.vuejs.org" target="_blank">Community Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank">Twitter</a></li>
-    </ul>
-    <h2>Ecosystem</h2>
-    <ul>
-      <li><a href="http://router.vuejs.org/" target="_blank">vue-router</a></li>
-      <li><a href="http://vuex.vuejs.org/" target="_blank">vuex</a></li>
-      <li><a href="http://vue-loader.vuejs.org/" target="_blank">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank">awesome-vue</a></li>
-    </ul>
+    <b-jumbotron :header="appTitle" :lead="appSubtitle">
+      <my-progress :total-quotes="totalQuotes"></my-progress>
+    </b-jumbotron>
+    <my-quote-list>
+      <my-quote-entry slot="quoteEntry" :total-quotes="totalQuotes"></my-quote-entry>
+      <my-quote-card v-for="(quote, index) in quotes" :key="index" :quote-id="index">
+        {{ quote }}
+      </my-quote-card>
+    </my-quote-list>
   </div>
 </template>
 
 <script>
+import { Bus } from './main.js'
+import Progress from './components/Progress.vue'
+import QuoteEntry from './components/QuoteEntry.vue'
+import Quotelist from './components/Quotelist.vue'
+import QuoteCard from './components/QuoteCard.vue'
+
 export default {
   name: 'app',
+  components: {
+    'my-progress': Progress,
+    'my-quote-entry': QuoteEntry,
+    'my-quote-list': Quotelist,
+    'my-quote-card': QuoteCard
+
+  },
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      appTitle: 'Quote-maker',
+      appSubtitle: 'Enter some quotes into the Quote-maker',
+      quotes: []
     }
+  },
+  computed: {
+    totalQuotes () {
+      return this.quotes.length
+    }
+  },
+  methods: {
+    makeQuote (text) {
+      this.quotes.push(text)
+    },
+    removeQuote (index) {
+      this.quotes.splice(index, 1)
+    }
+  },
+  created () {
+    Bus.$on('quoteEntered', (payload) => {
+      this.makeQuote(payload)
+    })
+    Bus.$on('removeQuote', (payload) => {
+      this.removeQuote(payload)
+    })
   }
 }
 </script>
 
 <style lang="scss">
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
 
-h1, h2 {
-  font-weight: normal;
-}
-
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-
-a {
-  color: #42b983;
-}
 </style>
