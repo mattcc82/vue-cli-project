@@ -166,3 +166,9 @@ Use the webpack template (not webpack-simple) to get this functionality: (https:
 #### Useful links
 
 - Official Docs - Forms: (http://vuejs.org/guide/forms.html)
+
+### Custom Directives
+
+#### Useful links
+
+- Official Docs - Custom Directives: (http://vuejs.org/guide/custom-directive.html)
