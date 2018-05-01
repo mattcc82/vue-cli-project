@@ -11,10 +11,10 @@ module.exports = {
   module: {
     rules: [
       {
-        enforce: "pre",
+        enforce: 'pre',
         test: /\.(js|vue)$/,
         exclude: /node_modules/,
-        loader: "eslint-loader",
+        loader: 'eslint-loader',
         options: {
           formatter: require('eslint-friendly-formatter')
         }
@@ -24,7 +24,7 @@ module.exports = {
         use: [
           'vue-style-loader',
           'css-loader'
-        ],
+        ]
       },
       {
         test: /\.scss$/,
@@ -32,7 +32,7 @@ module.exports = {
           'vue-style-loader',
           'css-loader',
           'sass-loader'
-        ],
+        ]
       },
       {
         test: /\.sass$/,
@@ -40,7 +40,7 @@ module.exports = {
           'vue-style-loader',
           'css-loader',
           'sass-loader?indentedSyntax'
-        ],
+        ]
       },
       {
         test: /\.vue$/,
