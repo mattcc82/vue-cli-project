@@ -160,3 +160,9 @@ Use the webpack template (not webpack-simple) to get this functionality: (https:
 - Official Docs - Custom Events: (http://vuejs.org/guide/components.html#Custom-Events)
 
 - Official Docs - Non-Parent-Child Communication: (http://vuejs.org/guide/components.html#Non-Parent-Child-Communication)
+
+### Forms
+
+#### Useful links
+
+- Official Docs - Forms: (http://vuejs.org/guide/forms.html)
