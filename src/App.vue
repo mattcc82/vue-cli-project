@@ -12,6 +12,27 @@
               &lt;transition name="fade-slide" appear&gt;
             </code>
             <hr>
+            <h4>Use Animate.css styles for <code>&lt;transition&gt;</code> Vue.js wrapper component</h4>
+            <select v-model="optionSelected" @change="animateReload">
+              <option v-for="(option, index) in options" :value="option.value" :key="index">{{ option.text }}</option>
+            </select> 
+            <br><br>
+            <transition
+              appear
+              :enter-active-class="optionSelected"
+              :leave-active-class="optionSelected">
+              <code v-show="animateCssShow" class="card" style="white-space: pre;">
+                {{ optionSelected }}
+                &lt;transition
+                  appear
+                  :enter-active-class="optionSelected"
+                  :leave-active-class="optionSelected"&gt;
+                  &lt;p v-show="animateCssShow" class="alert alert-danger text-center"&gt;{{ optionSelected }}&lt;/p&gt;
+                &lt;/transition&gt;
+              </code>
+            </transition>
+            <hr>
+            <h4>Custom transitions</h4>
             <div class="row item-row" v-for="obj in showObj" :key="obj.id">
               <div class="col-md-12">
                 <button type="button" class="btn" :class="'btn-' + obj.class" @click="obj.show = !obj.show">Toggle {{ obj.animate }}</button>
@@ -43,6 +64,13 @@ export default {
       setTimeout(() => {
         self.pageShow = true
       }, 1000)
+    },
+    animateReload () {
+      let self = this
+      this.animateCssShow = false
+      setTimeout(() => {
+        self.animateCssShow = true
+      }, 10)
     }
   },
   filters: {
@@ -55,6 +83,20 @@ export default {
   data () {
     return {
       pageShow: true,
+      animateCssShow: true,
+      optionSelected: 'animated bounce',
+      options: [
+        { value: 'animated bounce', text: 'bounce' },
+        { value: 'animated lightSpeedIn', text: 'lightSpeedIn' },
+        { value: 'animated flash', text: 'flash' },
+        { value: 'animated pulse', text: 'pulse' },
+        { value: 'animated rubberBand', text: 'rubberBand' },
+        { value: 'animated wobble', text: 'wobble' },
+        { value: 'animated bounceIn', text: 'bounceIn' },
+        { value: 'animated fadeInLeft', text: 'fadeInLeft' },
+        { value: 'animated zoomOut', text: 'zoomOut' },
+        { value: 'animated hinge', text: 'hinge' }
+      ],
       showObj: [
         { id: 0, show: false, class: 'primary', animate: 'fade' },
         { id: 1, show: false, class: 'info', animate: 'slide' },
