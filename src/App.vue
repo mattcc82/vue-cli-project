@@ -12,9 +12,9 @@
             <p class="lead" v-html="$options.filters.makeRed(text)"></p>
             <code class="card"><pre>
             
-              &lt;p class="lead"&gt;&#124;&#124; text | toLowercase &#125;&#125;&lt;/p&gt;
-              &lt;p class="lead"&gt;&#124;&#124; text | toUppercase &#125;&#125;&lt;/p&gt;
-              &lt;p class="lead"&gt;&#124;&#124; text | toUppercase | chained &#125;&#125;&lt;/p&gt;
+              &lt;p class="lead"&gt;&#123;&#123; text | toLowercase &#125;&#125;&lt;/p&gt;
+              &lt;p class="lead"&gt;&#123;&#123; text | toUppercase &#125;&#125;&lt;/p&gt;
+              &lt;p class="lead"&gt;&#123;&#123; text | toUppercase | chained &#125;&#125;&lt;/p&gt;
               &lt;p class="lead" v-html="$options.filters.makeRed(text)"&gt;&lt;/p&gt;
             
               filters: {
@@ -46,7 +46,7 @@
 
                 &lt;input type="text" v-model="colorFilter" placeholder="Filter list..."&gt;
                 &lt;ul&gt;
-                  &lt;li v-for="color in filteredColors" :key="color"&gt;&#124;&#124; color &#125;&#125;&lt;/li&gt;
+                  &lt;li v-for="color in filteredColors" :key="color"&gt;&#123;&#123; color &#125;&#125;&lt;/li&gt;
                 &lt;/ul&gt;
 
                 import colorMixin from './colorMixin.js'
