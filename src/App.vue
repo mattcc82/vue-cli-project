@@ -32,6 +32,59 @@
                 }
               }
             </pre></code>
+            <br><br>
+            <h4>Using a computed property instead of filters for more complex things</h4>
+            <button @click="colors.push(colorFilter)" class="btn btn-primary">
+              Add new color
+            </button>
+            <input type="text" v-model="colorFilter" placeholder="Filter list...">
+            <ul>
+              <li v-for="color in filteredColors" :key="color">{{ color }}</li>
+            </ul>
+            <code class="card">
+              <pre>
+
+                &lt;input type="text" v-model="colorFilter" placeholder="Filter list..."&gt;
+                &lt;ul&gt;
+                  &lt;li v-for="color in filteredColors" :key="color"&gt;&#124;&#124; color &#125;&#125;&lt;/li&gt;
+                &lt;/ul&gt;
+
+                import colorMixin from './colorMixin.js'
+
+                ...
+                
+                mixins: [ colorMixin ]
+
+                ...
+
+                --------------
+
+                // './colorMixin.js'
+
+                data () {
+                  return {
+                    colorFilter: '',
+                    colors: [
+                      'red',
+                      'yellow',
+                      'blue',
+                      'green'
+                    ]
+                  }
+                }
+
+                computed: {
+                  filteredColors () {
+                    return this.colors.filter((element) => {
+                      return element.match(this.colorFilter)
+                    })
+                  }
+                }
+              </pre>
+            </code>
+            <br><br>
+            <h4>Imported Component - also using the repeated Mix-in code</h4>
+            <my-list></my-list>
           </div>
         </div>
       </div>
@@ -40,13 +93,22 @@
 </template>
 
 <script>
+import List from './List.vue'
+import colorMixin from './colorMixin.js'
+
 export default {
   name: 'app',
+  components: {
+    'my-list': List
+  },
   data () {
     return {
       text: 'Hi, I am some text'
     }
   },
+  mixins: [
+    colorMixin
+  ],
   filters: {
     toLowercase (v) {
       return v.toLowerCase() + ' - returned using "|" piped "toLowercase" filter'
@@ -60,6 +122,9 @@ export default {
     makeRed (v) {
       return '<span style="color: red;">' + v + '</span>'
     }
+  },
+  created () {
+    console.log('Created hook from the main App instance')
   }
 }
 </script>
