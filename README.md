@@ -172,3 +172,11 @@ Use the webpack template (not webpack-simple) to get this functionality: (https:
 #### Useful links
 
 - Official Docs - Custom Directives: (http://vuejs.org/guide/custom-directive.html)
+
+### Filters & Mixins
+
+#### Useful links
+
+- Official Docs - Filters: (https://vuejs.org/v2/guide/filters.html)
+
+- Official Docs - Mixins: (http://vuejs.org/guide/mixins.html)
