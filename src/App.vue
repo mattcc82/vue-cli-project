@@ -48,6 +48,64 @@
                   </code>
                 </div>
               </div>
+              <hr>
+              <h4>Multiple element transitions</h4>
+              <button @click="multiShow = !multiShow" class="btn" :class="multiShow ? 'btn-info' : 'btn-success'">Toggle Multiple Transition</button>
+              <select v-model="multiSelect">
+                <option value="out-in">Out-In</option>
+                <option value="in-out">In-Out</option>
+              </select>
+              <select v-model="multiAnimate">
+                <option v-for="(obj, index) in showObj" :value="obj.animate" :key="index">{{ obj.animate }}</option>
+              </select>
+              <br><br>
+              <div class="item-row">
+                <transition 
+                  :name="multiAnimate"
+                  :mode="multiSelect">
+                  <p v-if="multiShow" class="alert alert-info text-center" key="1">Element 1</p>
+                  <p v-if="!multiShow" class="alert alert-success text-center" key="2">Element 2</p>
+                </transition>
+              </div>
+              <code class="card" style="white-space: pre;">
+                multiAnimate: {{ multiAnimate }}
+                multiSelect: {{ multiSelect }}
+                &lt;transition 
+                  :name="multiAnimate"
+                  :mode="multiSelect"&gt;
+                  &lt;p v-if="multiShow" class="alert alert-info text-center" key="1"&gt;Element 1&lt;/p&gt;
+                  &lt;p v-if="!multiShow" class="alert alert-success text-center" key="2"&gt;Element 2&lt;/p&gt;
+                &lt;/transition&gt;
+              </code>
+              <hr>
+              <h4>JS Hooks</h4>
+              <button @click="jsMethod" class="btn btn-primary">Toggle</button>
+              <br><br>
+              <div class="item-row js-block">
+                <!-- dont look for css animations in this transition -->
+                <!-- :css="false" -->
+                <transition
+                  :css="false"
+                  @before-enter="beforeEnter"
+                  @enter="enter"
+                  @after-enter="afterEnter"
+                  @enter-cancelled="enterCancelled"
+                  @before-leave="beforeLeave"
+                  @leave="leave"
+                  @after-leave="afterLeave"
+                  @leave-cancelled="leaveCancelled">
+                  <div v-if="jsShow" class="green-square"></div>
+                </transition>
+              </div>
+              <code class="card" style="white-space: pre; min-height: 40px;">
+                Recorded Hooks:
+                <ul>
+                  <li v-for="(hook, index) in jsHooks" :key="index">{{ hook }}</li>
+                </ul>
+                <hr>
+                borderRadius: {{ jsEl.borderRadius }}
+                opacity: {{ jsEl.opacity }}
+              </code>
             </div>
         </transition>
       </div>
@@ -71,6 +129,65 @@ export default {
       setTimeout(() => {
         self.animateCssShow = true
       }, 10)
+    },
+    jsMethod () {
+      this.jsShow = !this.jsShow
+      this.jsHooks = []
+    },
+    // js animation hooks
+    beforeEnter (el) {
+      this.jsHooks.push('beforeEnter')
+      el.style.borderRadius = '0% 0% 0% 0%'
+      el.style.opacity = 0
+    },
+    enter (el, done) {
+      this.jsHooks.push('enter')
+      let round = 1
+      const interval = setInterval(() => {
+        el.style.borderRadius = round + '% ' + round + '% ' + round + '% ' + round + '%'
+        el.style.opacity = ((round * 2) * 0.01)
+        this.jsEl.borderRadius = round
+        this.jsEl.opacity = ((round * 2) * 0.01)
+        round++
+        if (round >= 50) {
+          clearInterval(interval)
+          // need to call done to signal when this hook is done
+          done()
+        }
+      }, 20)
+    },
+    afterEnter (el) {
+      this.jsHooks.push('afterEnter')
+    },
+    enterCancelled (el) {
+      this.jsHooks.push('enterCancelled')
+    },
+    beforeLeave (el) {
+      this.jsHooks.push('beforeLeave')
+      el.style.borderRadius = '50%'
+      el.style.opacity = 1
+    },
+    leave (el, done) {
+      this.jsHooks.push('leave')
+      let round = 50
+      const interval = setInterval(() => {
+        el.style.borderRadius = round + '% ' + round + '% ' + round + '% ' + round + '%'
+        el.style.opacity = ((round * 2) * 0.01)
+        this.jsEl.borderRadius = round
+        this.jsEl.opacity = ((round * 2) * 0.01)
+        round--
+        if (round <= 0) {
+          clearInterval(interval)
+          // need to call done to signal when this hook is done
+          done()
+        }
+      }, 20)
+    },
+    afterLeave (el) {
+      this.jsHooks.push('afterLeave')
+    },
+    leaveCancelled (el) {
+      this.jsHooks.push('leaveCancelled')
     }
   },
   filters: {
@@ -83,6 +200,15 @@ export default {
   data () {
     return {
       pageShow: true,
+      multiShow: true,
+      multiSelect: 'out-in',
+      multiAnimate: 'fade',
+      jsShow: false,
+      jsHooks: [],
+      jsEl: {
+        borderRadius: 0,
+        opacity: 0
+      },
       animateCssShow: true,
       optionSelected: 'animated bounce',
       options: [
@@ -174,6 +300,16 @@ export default {
 .fixed-container {
   height: 30px;
 }
+.js-block {
+  min-height: 150px;
+}
+.green-square {
+  width: 120px;
+  height: 120px;
+  background-color: aquamarine;
+  border: 1px solid green;
+}
+
 
 // fade transition
 
