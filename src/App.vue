@@ -106,6 +106,18 @@
                 borderRadius: {{ jsEl.borderRadius }}
                 opacity: {{ jsEl.opacity }}
               </code>
+              <hr>
+              <h4>Component Transition</h4>
+              <button 
+                @click="selectedAlert === 'alert-info' ? selectedAlert = 'alert-danger' : selectedAlert = 'alert-info'" 
+                class="btn"
+                :class="selectedAlert === 'alert-info' ? 'btn-info' : 'btn-danger'">Transition Component</button>
+              <br><br>
+              <transition 
+                name="zoom" 
+                mode="out-in">
+                <component :is="selectedAlert"></component>
+              </transition>
             </div>
         </transition>
       </div>
@@ -113,8 +125,15 @@
 </template>
 
 <script>
+import Info from './Info.vue'
+import Danger from './Danger.vue'
+
 export default {
   name: 'app',
+  components: {
+    alertDanger: Danger,
+    alertInfo: Info
+  },
   methods: {
     reloadPage () {
       let self = this
@@ -209,6 +228,7 @@ export default {
         borderRadius: 0,
         opacity: 0
       },
+      selectedAlert: 'alert-info',
       animateCssShow: true,
       optionSelected: 'animated bounce',
       options: [
