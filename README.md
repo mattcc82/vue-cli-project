@@ -180,3 +180,11 @@ Use the webpack template (not webpack-simple) to get this functionality: (https:
 - Official Docs - Filters: (https://vuejs.org/v2/guide/filters.html)
 
 - Official Docs - Mixins: (http://vuejs.org/guide/mixins.html)
+
+### Animation / Transitions
+
+#### Useful links
+
+- official Docs - Enter/Leave & List Transitions: (https://vuejs.org/v2/guide/transitions.html)
+
+- official Docs - State Transitions: (https://vuejs.org/v2/guide/transitioning-state.html)
