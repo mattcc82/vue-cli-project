@@ -118,13 +118,111 @@
                 mode="out-in">
                 <component :is="selectedAlert"></component>
               </transition>
+              <hr>
+              <h4>Transition group <code>&lt;transition-group&gt;</code> </h4>
+              <button @click="addItem" class="btn btn-primary" :disabled="itemList.length >= 5">Add Item</button>
+              <br><br>
+                <ul class="list-group">
+                  <transition-group name="slide">
+                    <li class="list-group-item" v-for="(item, index) in itemList" :key="item">
+                      {{ item }}
+                      <button @click="removeItem(index)" class="btn btn-danger btn-sm float-right">Delete Item</button>
+                    </li>
+                  </transition-group>
+                </ul>
+                <br><br>
+                <code class="card" style="white-space: pre;">
+                  &lt;button @click="addItem" class="btn btn-primary" :disabled="itemList.length &gt;= 5"&gt;Add Item&lt;/button&gt;
+                  &lt;br&gt;&lt;br&gt;
+                  &lt;ul class="list-group"&gt;
+                    &lt;transition-group name="slide"&gt;
+                      &lt;li class="list-group-item" v-for="(item, index) in itemList" :key="item"&gt;
+                        item
+                        &lt;button @click="removeItem(index)" class="btn btn-danger btn-sm float-right"&gt;Delete Item&lt;/button&gt;
+                      &lt;/li&gt;
+                    &lt;/transition-group&gt;
+                  &lt;/ul&gt;
+
+                  // slide
+                .slide-enter {
+                  transform: translateX(20px);
+                }
+                .slide-enter-active {
+                  transition: all .3s ease-in;
+                }
+                .slide-leave-active {
+                  transition: all .75s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+                  transform: translateX(50px);
+                }
+                .slide-move {
+                  transition: 1s;
+                }
+                </code>
             </div>
         </transition>
+        <hr>
+        <h4>Shuffle custom transition</h4>
+        <br><br>
+        <button @click="shuffle" class="btn btn-primary">Shuffle!</button>
+        <br><br>
+        <transition-group name="shuffle" tag="div" class="shuffle-container">
+          <div v-for="cell in cells" :key="cell.id" class="cell" :style="{'background-color': cellColors[cell.number - 1]}"></div>
+        </transition-group>
+        <br><br>
+        <code class="card" style="white-space: pre;">
+          &lt;button @click="shuffle" class="btn btn-primary"&gt;Shuffle!&lt;/button&gt;
+          &lt;br&gt;&lt;br&gt;
+          &lt;transition-group name="shuffle" tag="div" class="shuffle-container"&gt;
+            &lt;div v-for="cell in cells" :key="cell.id" class="cell" :style="{'background-color': cellColors[cell.number - 1]}"&gt;&lt;/div&gt;
+          &lt;/transition-group&gt;
+
+          cells: Array.apply(null, { length: 36 })
+            .map(function (_, index) {
+              return {
+                id: index,
+                number: index % 6 + 1
+              }
+            }),
+          cellColors: [
+            'yellow',
+            'pink',
+            'brown',
+            'magenta',
+            'teal',
+            'orange'
+          ]
+
+          shuffle () {
+            this.cells = _.shuffle(this.cells)
+          }
+
+          // shuffle classes
+        .shuffle-container {
+          display: flex;
+          flex-wrap: wrap;
+          width: 148px;
+          margin-top: 10px;
+        }
+        .cell {
+          display: flex;
+          justify-content: space-around;
+          align-items: center;
+          width: 25px;
+          height: 25px;
+          border: 1px solid #aaa;
+          margin-right: -1px;
+          margin-bottom: -1px;
+        }
+        .shuffle-move {
+          transition: transform 1s;
+        }
+        </code>
       </div>
     </div>
 </template>
 
 <script>
+import _ from 'lodash'
 import Info from './Info.vue'
 import Danger from './Danger.vue'
 
@@ -141,6 +239,15 @@ export default {
       setTimeout(() => {
         self.pageShow = true
       }, 1000)
+    },
+    addItem () {
+      this.itemList.push(this.removeList.splice(0, 1)[0])
+    },
+    removeItem (index) {
+      this.removeList.push(this.itemList.splice(index, 1)[0])
+    },
+    shuffle () {
+      this.cells = _.shuffle(this.cells)
     },
     animateReload () {
       let self = this
@@ -229,6 +336,29 @@ export default {
         opacity: 0
       },
       selectedAlert: 'alert-info',
+      itemList: [
+        'Item 1',
+        'Item 2',
+        'Item 3',
+        'Item 4',
+        'Item 5'
+      ],
+      cells: Array.apply(null, { length: 36 })
+        .map(function (_, index) {
+          return {
+            id: index,
+            number: index % 6 + 1
+          }
+        }),
+      cellColors: [
+        'yellow',
+        'pink',
+        'brown',
+        'magenta',
+        'teal',
+        'orange'
+      ],
+      removeList: [],
       animateCssShow: true,
       optionSelected: 'animated bounce',
       options: [
@@ -358,6 +488,9 @@ export default {
   transition: all .75s cubic-bezier(1.0, 0.5, 0.8, 1.0);
   transform: translateX(50px);
 }
+.slide-move {
+  transition: 1s;
+}
 
 // fade-slide
 .fade-slide-enter {
@@ -371,6 +504,9 @@ export default {
   transition: 1s ease-in-out;
   transform: translateY(50px);
   opacity: 0;
+}
+.fade-slide-move {
+  transition: transform 1s;
 }
 
 // zoom
@@ -390,6 +526,27 @@ export default {
   100% {
     transform: scale(1);
   }
+}
+
+// shuffle classes
+.shuffle-container {
+  display: flex;
+  flex-wrap: wrap;
+  width: 148px;
+  margin-top: 10px;
+}
+.cell {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 25px;
+  height: 25px;
+  border: 1px solid #aaa;
+  margin-right: -1px;
+  margin-bottom: -1px;
+}
+.shuffle-move {
+  transition: transform 1s;
 }
 
 </style>
