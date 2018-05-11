@@ -188,3 +188,15 @@ Use the webpack template (not webpack-simple) to get this functionality: (https:
 - official Docs - Enter/Leave & List Transitions: (https://vuejs.org/v2/guide/transitions.html)
 
 - official Docs - State Transitions: (https://vuejs.org/v2/guide/transitioning-state.html)
+
+### HTTP (using vue-resource)
+
+#### Useful links
+
+- vue-resource on Github: https://github.com/yyx990803/vue-resource
+
+- Some Code Recipes for vue-resource: https://github.com/yyx990803/vue-resource/blob/master/docs/recipes.md
+
+- Template URLs: https://medialize.github.io/URI.js/uri-template.html
+
+- Requests and Responses (incl. Different File Formats): https://github.com/yyx990803/vue-resource/blob/master/docs/http.md
