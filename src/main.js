@@ -1,8 +1,10 @@
 import Vue from 'vue'
 import App from './App.vue'
+import router from './router'
 
 new Vue({ // eslint-disable-line no-new
   el: '#app',
+  router,
   /*
     take the element specified above "#app"
     and render the .vue template file "./App.vue"
