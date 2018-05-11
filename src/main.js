@@ -5,7 +5,7 @@ import 'bootstrap/dist/css/bootstrap.css'
 
 Vue.use(VueResource)
 
-Vue.http.options.root = 'https://vue-http-sandbox.firebaseio.com/data.json'
+Vue.http.options.root = 'https://vue-http-sandbox.firebaseio.com/'
 Vue.http.interceptors.push((request, next) => {
   // some custom modification to the request
   console.log(request)
