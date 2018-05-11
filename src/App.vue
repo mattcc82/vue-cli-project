@@ -1,21 +1,48 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <h1>{{ msg }}</h1>
-    <h2>Essential Links</h2>
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank">Forum</a></li>
-      <li><a href="https://chat.vuejs.org" target="_blank">Community Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank">Twitter</a></li>
-    </ul>
-    <h2>Ecosystem</h2>
-    <ul>
-      <li><a href="http://router.vuejs.org/" target="_blank">vue-router</a></li>
-      <li><a href="http://vuex.vuejs.org/" target="_blank">vuex</a></li>
-      <li><a href="http://vue-loader.vuejs.org/" target="_blank">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank">awesome-vue</a></li>
-    </ul>
+    <section class="jumbotron">
+      <h1>http / xhr</h1>
+      <hr>
+      <div class="container">
+        <p class="lead">Simple call to Firebase with vue-resource</p>
+        <div class="row">
+          <div class="col-sm-12 col-md-6">
+            <div class="form-box">
+              <div class="form-group">
+                <label for="username">Username</label>
+                <input v-model="userObj.username" type="text" id="username" class="form-control">
+              </div>
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input v-model="userObj.email" type="text" id="email" class="form-control">
+              </div>
+              <button @click.prevent="submit" type="submit" class="btn btn-primary">Submit</button>
+            </div>
+          </div>
+          <div class="col-sm-12 col-md-6">
+            <div class="form-box">
+              <p class="lead">Available records</p>
+              <div class="row">
+                <div class="col-sm-6">Username</div>
+                <div class="col-sm-6">Email</div>
+              </div>
+              <ul class="list-group">
+                <transition-group name="fade" appear>
+                  <li class="list-group-item" v-for="(user, index) in userStore" :key="user.username + '_' + index">
+                    <div class="row">
+                      <div class="col-sm-6">{{ user.username }}</div>
+                      <div class="col-sm-6">{{ user.email }}</div>
+                    </div>
+                  </li>
+                </transition-group>
+              </ul>
+              <br><br>
+              <button @click.prevent="fetch" type="button" class="btn btn-secondary">Fetch</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   </div>
 </template>
 
@@ -24,37 +51,52 @@ export default {
   name: 'app',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      userObj: {
+        username: '',
+        email: ''
+      },
+      userStore: []
+    }
+  },
+  methods: {
+    submit () {
+      let self = this
+      this.$http.post('', this.userObj)
+        .then(response => {
+          for (let key in self.userObj) {
+            self.userObj[key] = ''
+          }
+        }, error => {
+          console.warn(error)
+        })
+    },
+    fetch () {
+      this.$http.get('')
+        .then(response => {
+          return response.json()
+        }, error => {
+          console.warn(error)
+        }).then(data => {
+          const results = []
+          for (let key in data) {
+            results.push(data[key])
+          }
+          this.userStore = results
+        })
     }
   }
 }
 </script>
 
 <style lang="scss">
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+.form-box {
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 0.5);
 }
-
-h1, h2 {
-  font-weight: normal;
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
 }
-
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-
-a {
-  color: #42b983;
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
 }
 </style>
