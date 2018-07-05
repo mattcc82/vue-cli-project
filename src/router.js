@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import Header from './components/Header'
 import Home from './components/Home'
 import User from './components/user/user'
 import UserStart from './components/user/UserStart'
@@ -21,16 +22,25 @@ const router = new VueRouter({
   },
   routes: [
     { path: '/user',
-      name: 'user',
-      component: User,
+      components: {
+        default: User,
+        'header-bottom': Header
+      },
       props: true,
       children: [
-        { path: '', component: UserStart },
+        { path: '', component: UserStart, name: 'user' },
         { path: ':id', component: UserDetail },
-        { path: ':id/edit', component: UserEdit }
+        { path: ':id/edit', component: UserEdit, name: 'userEdit' }
       ]
     },
-    { path: '/', name: 'home', component: Home },
+    {
+      path: '/',
+      name: 'home',
+      components: {
+        default: Home,
+        'header-top': Header
+      }
+    },
     { path: '*', name: '404', component: _404 }
   ]
 })

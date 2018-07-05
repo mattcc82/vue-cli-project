@@ -5,8 +5,9 @@
       <p class="lead">Using vue-router</p>
     </div>
     <div class="container">
-      <c-header></c-header>
+      <router-view name="header-top"></router-view>
       <router-view></router-view>
+      <router-view name="header-bottom"></router-view>
     </div>
   </div>
 </template>
