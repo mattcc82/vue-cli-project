@@ -200,3 +200,10 @@ Use the webpack template (not webpack-simple) to get this functionality: (https:
 - Template URLs: https://medialize.github.io/URI.js/uri-template.html
 
 - Requests and Responses (incl. Different File Formats): https://github.com/yyx990803/vue-resource/blob/master/docs/http.md
+
+
+### Vue Router
+
+- vue-router Github Page: https://github.com/vuejs/vue-router
+
+- vue-router Documentation:https://router.vuejs.org/en/
