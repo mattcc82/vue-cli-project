@@ -201,8 +201,9 @@ Use the webpack template (not webpack-simple) to get this functionality: (https:
 
 - Requests and Responses (incl. Different File Formats): https://github.com/yyx990803/vue-resource/blob/master/docs/http.md
 
-
 ### Vue Router
+
+#### Useful links
 
 - vue-router Github Page: https://github.com/vuejs/vue-router
 
