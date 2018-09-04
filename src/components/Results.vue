@@ -5,11 +5,13 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   computed: {
-    counter () {
-      return this.$store.state.counter
-    },
+    ...mapGetters({
+      counter: 'singleCounter'
+    }),
     variant () {
       let counter = parseInt(this.counter)
       return counter === 0 ? 'warning' : counter > 0 ? 'success' : 'danger'
