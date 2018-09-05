@@ -16,7 +16,7 @@ const mutations = {
 
 const actions = {
   update_value: (context, payload) => {
-    context.commit('update_value', payload)
+    context.commit('updateValue', payload)
   }
 }
 

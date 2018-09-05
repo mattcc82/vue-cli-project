@@ -3,6 +3,9 @@ import Vuex from 'vuex'
 import counter from './modules/counter'
 import clicks from './modules/clicks'
 
+// you can outsource getters, actions, mutations by importing objects in other files
+import * as actions from './actions'
+
 Vue.use(Vuex)
 
 const store = new Vuex.Store({ // eslint-disable-line no-new
@@ -17,16 +20,14 @@ const store = new Vuex.Store({ // eslint-disable-line no-new
   },
   // mutations change state inside the store - synchronously
   mutations: {
-    update_value: (state, payload) => {
+    updateValue: (state, payload) => {
       state.value = payload
     }
   },
   // actions are dispatched by the view/component and commit mutations
-  actions: {
-    update_value: (context, payload) => {
-      context.commit('update_value', payload)
-    }
-  },
+  actions,
+  // import modules with their own getters, mutations, actions from external files
+  // ** Make sure objects and variables are not duplicate since they share the same namespace once merged **
   modules: {
     counter,
     clicks

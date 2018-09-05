@@ -36,7 +36,7 @@ export default {
         return this.$store.getters.value
       },
       set (value) {
-        this.$store.dispatch('update_value', value)
+        this.$store.dispatch('updateValue', value)
       }
     }
   },

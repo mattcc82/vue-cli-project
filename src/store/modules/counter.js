@@ -1,12 +1,16 @@
+import * as types from '../types.js'
+
 const state = {
   counter: 0
 }
 
 const getters = {
-  singleCounter: state => {
+  // es6 dynamic property name imported from the types.js file
+  // assign the name at runtime
+  [types.SINGLE_COUNTER]: state => {
     return state.counter
   },
-  doubleCounter: state => {
+  [types.DOUBLE_COUNTER]: state => {
     return state.counter * 2
   }
 }

@@ -208,3 +208,11 @@ Use the webpack template (not webpack-simple) to get this functionality: (https:
 - vue-router Github Page: https://github.com/vuejs/vue-router
 
 - vue-router Documentation:https://router.vuejs.org/en/
+
+### Vuex
+
+#### Useful links
+
+- Vuex Github Page: https://github.com/vuejs/vuex
+
+- Vuex Documenation: https://vuex.vuejs.org/en/

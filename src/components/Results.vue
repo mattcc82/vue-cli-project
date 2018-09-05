@@ -6,11 +6,12 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import * as types from '../store/types.js'
 
 export default {
   computed: {
     ...mapGetters({
-      counter: 'singleCounter'
+      counter: types.SINGLE_COUNTER
     }),
     variant () {
       let counter = parseInt(this.counter)
